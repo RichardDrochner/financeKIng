@@ -1,0 +1,15 @@
+services:
+  llama:
+    image: ghcr.io/ggerganov/llama.cpp:latest
+    container_name: llama_container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./models:/app/models  # Das heruntergeladene Modell hier mounten
+    environment:
+      - MODEL_PATH=/app/models/models--meta-llama--Llama-3.2-1B/ggml-model.bin  # Pfad zur Modell-Datei
+      - THREADS=4
+    command: >
+      --model ${MODEL_PATH} 
+      --threads ${THREADS}
+      --port 8080
